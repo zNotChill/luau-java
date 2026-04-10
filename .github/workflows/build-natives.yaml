@@ -38,7 +38,7 @@ jobs:
           cmake-version: '3.28.x'
 
       - name: Build Natives
-        run: ./gradlew :native:publishAllPublicationsToZnotchillRepository -PcmakeBuildType=Release -PbuildType=Release
+        run: ./gradlew publishAllPublicationsToZnotchillRepository -PcmakeBuildType=Release
 
       - name: Upload Platform Artifact
         uses: actions/upload-artifact@v4
