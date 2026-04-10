@@ -26,13 +26,14 @@ tasks.withType<Jar> {
 
 publishing {
     publications {
-        named<MavenPublication>("luau") {
-            groupId = project.group.toString()
-            artifactId = if (project.name == "native") "luau-natives" else "luau"
-            version = project.version.toString()
+        matching { it.name == "luau"}.all {
+            val pub = this as MavenPublication
+            pub.groupId = project.group.toString()
+            pub.artifactId = if (project.name == "native") "luau-natives" else "luau"
+            pub.version = project.version.toString()
 
-            pom {
-                name.set(artifactId)
+            pub.pom {
+                name.set(pub.artifactId)
                 configureMavenPom(this)
             }
         }
