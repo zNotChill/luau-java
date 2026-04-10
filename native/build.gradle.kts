@@ -105,3 +105,23 @@ publishing.publications.create<MavenPublication>("native") {
         configureMavenPom(this)
     }
 }
+
+
+publishing {
+    repositories {
+        maven {
+            name = "znotchill"
+            url = uri("https://repo.znotchill.me/repository/maven-releases/")
+            credentials {
+                username = System.getenv("MAVEN_USER")
+                password = System.getenv("MAVEN_PASS")
+            }
+        }
+    }
+}
+
+afterEvaluate {
+    publishing.publications.withType<MavenPublication>().configureEach {
+        artifacts.removeIf { it.extension == "asc" }
+    }
+}
