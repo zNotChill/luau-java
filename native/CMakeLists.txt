@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 3.28)
 project(luaujava C CXX)
 
+if(MSVC)
+    # use static runtime so we don't need vc redist
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    
+    # force release mode
+    if(NOT CMAKE_BUILD_TYPE)
+        set(CMAKE_BUILD_TYPE Release)
+    endif()
+endif()
+
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 

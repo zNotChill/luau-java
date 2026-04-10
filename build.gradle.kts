@@ -1,10 +1,11 @@
 plugins {
     id("luau.java-library")
     id("luau.jextract")
+    `maven-publish`
 }
 
-group = "dev.hollowcube"
-version = System.getenv("TAG_VERSION") ?: "dev"
+group = "me.znotchill.luau"
+version = "1.0.1-patch"
 description = "Java bindings for Luau"
 
 dependencies {
@@ -37,19 +38,29 @@ publishing.publications.create<MavenPublication>("luau") {
     }
 }
 
-// Multi publishing setup
+publishing {
+    publications {
+        named<MavenPublication>("luau") {
+            groupId = project.group.toString()
+            artifactId = if (project.name == "native") "luau-natives" else "luau"
+            version = project.version.toString()
 
-nmcpAggregation {
-    centralPortal {
-        username = System.getenv("SONATYPE_USERNAME")
-        password = System.getenv("SONATYPE_PASSWORD")
-        publishingType = "AUTOMATIC"
+            pom {
+                name.set(artifactId)
+                configureMavenPom(this)
+            }
+        }
     }
-}
 
-dependencies {
-    if (System.getenv("LUAU_PUBLISH_ROOT") != null)
-        nmcpAggregation(rootProject)
-    if (System.getenv("LUAU_PUBLISH_NATIVES") != null)
-        nmcpAggregation(project(":native"))
+    repositories {
+        maven {
+            name = "znotchill"
+            url = uri("https://repo.znotchill.me/repository/maven-releases/")
+            credentials {
+                username = findProperty("zRepoUsername") as String? ?: System.getenv("MAVEN_USER")
+                password = findProperty("zRepoPassword") as String? ?: System.getenv("MAVEN_PASS")
+            }
+        }
+        mavenLocal()
+    }
 }
