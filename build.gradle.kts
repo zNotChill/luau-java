@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "me.znotchill.luau"
-version = "1.0.1-patch"
+version = "1.0.1-patch2"
 description = "Java bindings for Luau"
 
 dependencies {
