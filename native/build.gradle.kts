@@ -120,6 +120,10 @@ publishing {
     }
 }
 
+tasks.withType<Sign> {
+    onlyIf { false }
+}
+
 afterEvaluate {
     publishing.publications.withType<MavenPublication>().configureEach {
         artifacts.removeIf { it.extension == "asc" }

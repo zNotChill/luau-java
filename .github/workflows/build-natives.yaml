@@ -41,7 +41,8 @@ jobs:
         run: |
           ./gradlew clean :native:publishNativePublicationToZnotchillRepository \
             -PcmakeBuildType=Release \
-            -PbuildType=Release
+            -PbuildType=Release \
+            -x signNativePublication
 
       - name: Upload Platform Artifact
         uses: actions/upload-artifact@v4
