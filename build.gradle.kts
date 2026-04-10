@@ -24,20 +24,6 @@ tasks.withType<Jar> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-publishing.publications.create<MavenPublication>("luau") {
-    groupId = project.group.toString()
-    artifactId = "luau"
-    version = project.version.toString()
-
-    from(project.components["java"])
-
-    pom {
-        name.set(artifactId)
-
-        configureMavenPom(this)
-    }
-}
-
 publishing {
     publications {
         named<MavenPublication>("luau") {
