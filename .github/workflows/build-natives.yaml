@@ -44,4 +44,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: luau-natives-${{ matrix.name }}
-          path: native/build/libs/*.jar
+          path: "**/build/libs/*.jar"
+          if-no-files-found: error
