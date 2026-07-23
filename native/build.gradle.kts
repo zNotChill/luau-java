@@ -111,7 +111,7 @@ publishing {
     repositories {
         maven {
             name = "znotchill"
-            url = uri("https://repo.znotchill.me/repository/maven-releases/")
+            url = uri("https://repo.znotchill.me/releases")
             credentials {
                 username = System.getenv("MAVEN_USER")
                 password = System.getenv("MAVEN_PASS")
