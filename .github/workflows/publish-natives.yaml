@@ -1,4 +1,4 @@
-name: Build Natives (All Platforms)
+name: Publish Natives (All Platforms)
 
 on:
   push:
