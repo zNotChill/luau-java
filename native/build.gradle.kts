@@ -73,11 +73,11 @@ tasks.register<Copy>("copyNativeResources") {
     dependsOn("cmakeBuild")
 
     val nativeResources = "nativeResources/net/hollowcube/luau/${platformOs}/${platformArch}"
+    val libDir = layout.buildDirectory.get().asFile.resolve("cmake-build/lib")
+    val configDir = libDir.resolve(buildType)
 
-    var libPath = "cmake-build/lib"
-    if (platformOs == "windows") libPath += "/${buildType}"
-    from(file(layout.buildDirectory).resolve(libPath))
-    into(file(layout.buildDirectory).resolve(nativeResources))
+    from(project.provider { if (configDir.isDirectory) configDir else libDir })
+    into(layout.buildDirectory.get().asFile.resolve(nativeResources))
 }
 
 tasks.withType<ProcessResources> {
